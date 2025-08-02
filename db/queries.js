@@ -90,7 +90,32 @@ async function queryAllGamesAndStudio() {
 }
 
 // WRITE Queries
+async function insertGame(game, studio, categoryIds) {
+  const studioResult = await pool.query(
+    `INSERT INTO studio (name) VALUES $1 RETURNING studio_id;`,
+    [studio]
+  );
 
+  const studioId = studioResult.rows[0].studio_id;
+
+  const gamesResult = await pool.query(
+    `INSERT INTO games (name, studio_id) VALUES ($1, $2) RETURNING game_id`,
+    [game, studioId]
+  );
+
+  const gameId = gamesResult.rows[0].game_id;
+
+  for (const category of categoryIds) {
+    await pool.query(
+      `INSERT INTO game_categories (game_id, category_id) VALUES ($1, $2);`,
+      [gameId, category]
+    );
+  }
+}
+
+async function insertNewCategory(categryName) {}
+
+async function insertNewStudio(studioName) {}
 // UPDATE Queries
 
 // DELETE Queries
@@ -106,5 +131,8 @@ module.exports = {
   queryGamesByCategory,
   queryGamesByStudio,
   queryAllGamesAndStudio,
+  insertGame,
+  insertNewCategory,
+  insertNewStudio,
   deleteAllData,
 };
