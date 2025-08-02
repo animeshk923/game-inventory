@@ -32,18 +32,19 @@ async function queryOnlyGames() {
 }
 
 async function queryOnlyStudios() {
-  return await pool.query(
+  const { rows } = await pool.query(
     `
-    SELECT name AS studios FROM studio 
+    SELECT * FROM studio 
     ORDER BY name ASC;
     `
   );
+  return rows;
 }
 
 async function queryOnlyCategories() {
   return await pool.query(
     `
-    SELECT name AS categories FROM categories 
+    SELECT * FROM categories 
     ORDER BY name ASC;
     `
   );
@@ -64,15 +65,15 @@ async function queryGamesByCategory(category) {
   return rows;
 }
 
-async function queryGamesByStudio(studioName) {
+async function queryGamesByStudio(studioId) {
   const { rows } = await pool.query(
     `
     SELECT g.name AS games, s.name AS studios
     FROM games AS g
     INNER JOIN studio AS s ON g.studio_id = s.studio_id
-    WHERE s.name ILIKE '($1)';
+    WHERE s.studio_id = $1;
 `,
-    [studioName]
+    [studioId]
   );
 
   return rows;

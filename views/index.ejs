@@ -1,0 +1,21 @@
+<!-- index.ejs -->
+<html>
+  <head>
+    <title>Game Inventory</title>
+    <link rel="stylesheet" href="/index.scss" />
+  </head>
+  <body>
+    <h1>Inventory of popular games</h1>
+    <div class="byStudios">
+      <h3>Discover by popular studio</h3>
+      <% studioList.forEach(item => { %>
+      <a href="<%= item.studio_id %>">
+        <button><%= item.name %></button>
+      </a>
+      <% }) %>
+    </div>
+    <div class="categories">
+      <h3>Discover by categories</h3>
+    </div>
+  </body>
+</html>
