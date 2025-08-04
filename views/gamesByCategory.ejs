@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/form.scss" />
   </head>
   <body>
-    <h2><%= games[0].name %> Games</h2>
+    <h2><%= studioName[0].category_name %> Games</h2>
     <ol>
       <% games.forEach(item => { %>
-      <li><%= item.games %></li>
+      <li><%= item.game_name %></li>
       <% }) %>
     </ol>
     <a href="/">Back to homepage</a>

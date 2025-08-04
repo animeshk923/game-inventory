@@ -66,6 +66,17 @@ async function queryGamesByCategory(categoryId) {
   return rows;
 }
 
+async function queryCategoryById(categoryId) {
+  const { rows } = await pool.query(
+    `
+    select * from categories where category_id = $1;
+  `,
+    [categoryId]
+  );
+
+  return rows;
+}
+
 async function queryGamesByStudio(studioId) {
   const { rows } = await pool.query(
     `
@@ -133,6 +144,7 @@ module.exports = {
   queryGamesByCategory,
   queryGamesByStudio,
   queryAllGamesAndStudio,
+  queryCategoryById,
   insertGame,
   insertNewCategory,
   insertNewStudio,
