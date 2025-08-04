@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Studio</title>
-    <link rel="stylesheet" href="/message.css" />
+    <title>Category</title>
+    <link rel="stylesheet" href="/form.scss" />
   </head>
   <body>
-    <h2>Games by <%= games[0].studios %></h2>
+    <h2><%= games[0].name %> Games</h2>
     <ol>
       <% games.forEach(item => { %>
-       <li> <%= item.games %></li>
+      <li><%= item.games %></li>
       <% }) %>
     </ol>
     <a href="/">Back to homepage</a>

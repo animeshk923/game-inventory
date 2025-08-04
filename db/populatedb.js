@@ -6,19 +6,19 @@ const SQL = `
 -- Studio table
 CREATE TABLE IF NOT EXISTS studio (
     studio_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(255) NOT NULL UNIQUE
+    studio_name VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Categories table
 CREATE TABLE IF NOT EXISTS categories (
     category_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(255) NOT NULL UNIQUE
+    category_name VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Games table
 CREATE TABLE IF NOT EXISTS games (
     game_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(255) NOT NULL,
+    game_name VARCHAR(255) NOT NULL,
     studio_id INT NOT NULL,
     FOREIGN KEY (studio_id) REFERENCES studio(studio_id)
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS game_categories (
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-INSERT INTO studio (name) VALUES
+INSERT INTO studio (studio_name) VALUES
   ('Nintendo'),
   ('Santa Monica Studio'),
   ('Mojang Studios'),
@@ -56,7 +56,7 @@ INSERT INTO studio (name) VALUES
   ('Atlus'),
   ('BioWare');
 
-INSERT INTO categories (name) VALUES
+INSERT INTO categories (category_name) VALUES
   ('Adventure'),
   ('Open World'),
   ('Action'),
@@ -87,7 +87,7 @@ INSERT INTO categories (name) VALUES
   ('Japanese'),
   ('Social Sim');
 
-INSERT INTO games (name, studio_id) VALUES
+INSERT INTO games (game_name, studio_id) VALUES
 ('The Legend of Zelda: Breath of the Wild', 1),  -- Nintendo
 ('God of War', 2),                              -- Santa Monica Studio
 ('Minecraft', 3),                               -- Mojang Studios
