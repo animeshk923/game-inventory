@@ -6,6 +6,6 @@ appRoute
   .get("/", controller.indexPageGet)
   .get("/studio/:studioId", controller.getGamesByStudioId)
   .get("/category/:categoryId", controller.getGamesByCategoryId)
-  .get("/addGame", controller.addGamesPost);
+  .get("/addGame", controller.addGames);
 
 module.exports = appRoute;

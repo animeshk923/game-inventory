@@ -23,17 +23,23 @@ async function getGamesByCategoryId(req, res) {
   res.render("gamesByCategory", { games: games, studioName: studioName });
 }
 
-async function addGamesPost(req, res) {
-  // const { studio } = req.body;
+async function addGames(req, res) {
+  // const { studio, category } = req.body;
   const studioList = await db.queryOnlyStudios();
   const categoryList = await db.queryOnlyCategories();
-  // console.log(studioList);
-  res.render("addNewGame", { studioList: studioList, categoryList: categoryList});
+  // await db.insertGame(gameName, studioId, categoryId)
+  res.render("addNewGame", {
+    studioList: studioList,
+    categoryList: categoryList,
+  });
+
+  console.log(categoryList);
+  
 }
 
 module.exports = {
   indexPageGet,
   getGamesByStudioId,
   getGamesByCategoryId,
-  addGamesPost,
+  addGames,
 };

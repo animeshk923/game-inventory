@@ -8,23 +8,30 @@
   </head>
   <body>
     <h1>Add New Game</h1>
-    <form action="" method="POST">
+    <form action="/added" method="POST">
       <label for="gameName">Name: </label>
       <input type="text" name="gameName" id="gameName" required />
-      <label for="gameName">Select Studio </label>
+      <label for="studio">Select Studio </label>
       <select name="studio" id="studio">
         <% studioList.forEach(item => { %>
-          <option value="<%= item.studio_name %>"><%= item.studio_name %></option>
-        <% }) %>
-      </select>
-      <label for="gameName">Select Category </label>
-      <select name="category" id="category">
-        <% categoryList.forEach(item => { %>
-          <option value="<%= item.category_name %>"><%= item.category_name %></option>
-        <% }) %>
-      </select>
-      
+        <option value="<%= item.studio_name %>"><%= item.studio_name %></option>
+        <% }) %></select
+      ><br /><br />
+      Select Category: <br /><br />
+      <% categoryList.forEach(item => { %> <input type="checkbox" id="category"
+      name="category value="technology" />
+      <label for="<%= item.category_name %>"><%= item.category_name %></label><br />
+
+      <% }) %>
+
       <button type="submit">Submit</button>
+
+      <h4>
+        Didn't find your desired studio or category? Add the concerned from
+        below ways:
+      </h4>
+      <button>Add New Studio</button><br /><br />
+      <button>Add New Category</button><br /><br />
     </form>
     <a href="/">Back to home</a>
   </body>

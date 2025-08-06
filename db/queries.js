@@ -103,17 +103,17 @@ async function queryAllGamesAndStudio() {
 }
 
 // WRITE Queries
-async function insertGame(game, studio, categoryIds) {
+async function insertGame(gameName, categoryIds) {
   const studioResult = await pool.query(
-    `INSERT INTO studio (studio_name) VALUES $1 RETURNING studio_id;`,
-    [studio]
+    `INSERT INTO studio (studio_id, studio_name) VALUES ($1, $2) RETURNING studio_id;`,
+    [studidwoId, studioName]
   );
 
   const studioId = studioResult.rows[0].studio_id;
 
   const gamesResult = await pool.query(
     `INSERT INTO games (game_name, studio_id) VALUES ($1, $2) RETURNING game_id`,
-    [game, studioId]
+    [gameName, studioId]
   );
 
   const gameId = gamesResult.rows[0].game_id;
