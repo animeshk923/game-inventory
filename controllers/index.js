@@ -37,22 +37,25 @@ async function addGamesPost(req, res) {
   // const { studio, category } = req.body;
   const { gameName, studioName } = req.body;
   const selectedCategory = req.body.category || [];
-  let categoryIdsArray = [];
 
-  selectedCategory.forEach((categoryName) => {
-    const categoryId = getCategoryId(categoryName);
-    categoryIdsArray.push(categoryId);
-  });
+  const categoryIdsArray = await Promise.all(
+    selectedCategory.map(async (categoryName) => {
+      return await getCategoryId(categoryName);
+    })
+  );
 
   // const studioId = await db.queryStudioIdByName(studioName);
   // await db.insertGame(gameName, studioId, categoryId);
   console.log("categories:", selectedCategory);
   console.log("categoryArr", categoryIdsArray);
+  console.log("game name", gameName);
+  console.log("studio name", studioName);
   res.redirect("/");
 }
 
 async function getCategoryId(categoryName) {
-  await db.queryCategoryIdByName(categoryName);
+  const rows = await db.queryCategoryIdByName(categoryName);
+  return rows[0].category_id;
 }
 
 async function deleteAllDataPost() {

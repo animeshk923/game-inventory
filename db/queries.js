@@ -126,7 +126,7 @@ async function queryCategoryIdByName(categoryName) {
     SELECT * FROM categories WHERE category_name = $1`,
     [categoryName]
   );
-  return rows[0].category_id;
+  return rows;
 }
 
 // WRITE Queries
