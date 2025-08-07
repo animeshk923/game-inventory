@@ -120,8 +120,17 @@ async function queryStudioIdByName(studioName) {
   return rows[0].studio_id;
 }
 
+async function queryCategoryIdByName(categoryName) {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM categories WHERE category_name = $1`,
+    [categoryName]
+  );
+  return rows[0].category_id;
+}
+
 // WRITE Queries
-async function insertGame(gameName, categoryIds, studioId) {
+async function insertGame(gameName, categoryIdsList, studioId) {
   const gameIdResult = await pool.query(
     `INSERT INTO games (game_name, studio_id) VALUES ($1, $2) RETURNING game_id`,
     [gameName, studioId]
@@ -129,10 +138,10 @@ async function insertGame(gameName, categoryIds, studioId) {
 
   const gameId = gameIdResult.rows[0].game_id;
 
-  for (const category of categoryIds) {
+  for (const categoryId of categoryIdsList) {
     await pool.query(
       `INSERT INTO game_categories (game_id, category_id) VALUES ($1, $2);`,
-      [gameId, category]
+      [gameId, categoryId]
     );
   }
 }
@@ -149,7 +158,7 @@ async function insertNewStudio(studioName) {}
 
 // DELETE Queries
 async function deleteAllData() {
-  await pool.query("DROP TABLE games;");
+  return await pool.query("DROP TABLE games;");
 }
 
 module.exports = {
@@ -163,6 +172,7 @@ module.exports = {
   queryCategoryById,
   queryGameIdByName,
   queryStudioIdByName,
+  queryCategoryIdByName,
   insertGame,
   insertNewCategory,
   insertNewStudio,
