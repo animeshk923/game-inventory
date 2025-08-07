@@ -69,7 +69,7 @@ async function queryGamesByCategory(categoryId) {
 async function queryCategoryById(categoryId) {
   const { rows } = await pool.query(
     `
-    select * from categories where category_id = $1;
+    SELECT * FROM categories WHERE category_id = $1;
   `,
     [categoryId]
   );
@@ -102,21 +102,32 @@ async function queryAllGamesAndStudio() {
   return rows;
 }
 
-// WRITE Queries
-async function insertGame(gameName, categoryIds) {
-  const studioResult = await pool.query(
-    `INSERT INTO studio (studio_id, studio_name) VALUES ($1, $2) RETURNING studio_id;`,
-    [studidwoId, studioName]
+async function queryGameIdByName(gameName) {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM games WHERE game_name ILIKE '$1%'`,
+    [gameName]
   );
+  return rows[0].studio_id;
+}
 
-  const studioId = studioResult.rows[0].studio_id;
+async function queryStudioIdByName(studioName) {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM studio WHERE studio_name = '$1'`,
+    [studioName]
+  );
+  return rows[0].studio_id;
+}
 
-  const gamesResult = await pool.query(
+// WRITE Queries
+async function insertGame(gameName, categoryIds, studioId) {
+  const gameIdResult = await pool.query(
     `INSERT INTO games (game_name, studio_id) VALUES ($1, $2) RETURNING game_id`,
     [gameName, studioId]
   );
 
-  const gameId = gamesResult.rows[0].game_id;
+  const gameId = gameIdResult.rows[0].game_id;
 
   for (const category of categoryIds) {
     await pool.query(
@@ -126,7 +137,12 @@ async function insertGame(gameName, categoryIds) {
   }
 }
 
-async function insertNewCategory(categryName) {}
+async function insertNewCategory(categoryName) {
+  const studioResult = await pool.query(
+    `INSERT INTO studio (studio_id, studio_name) VALUES ($1, $2) RETURNING studio_id;`,
+    [studioId, studioName]
+  );
+}
 
 async function insertNewStudio(studioName) {}
 // UPDATE Queries
@@ -145,6 +161,8 @@ module.exports = {
   queryGamesByStudio,
   queryAllGamesAndStudio,
   queryCategoryById,
+  queryGameIdByName,
+  queryStudioIdByName,
   insertGame,
   insertNewCategory,
   insertNewStudio,
