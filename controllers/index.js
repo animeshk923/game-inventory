@@ -55,6 +55,19 @@ async function getCategoryId(categoryName) {
   return rows[0].category_id;
 }
 
+async function addStudioGet(req, res) {
+  res.render("addNewStudio");
+}
+
+async function addStudioPost(req, res) {
+  const studioName = req.body.studioName;
+  await db.insertNewStudio(studioName);
+
+  console.log(studioName, "inserted in DB");
+
+  res.redirect("/");
+}
+
 async function deleteAllDataPost() {
   await db.deleteAllData();
   res.render("deleteDataMessage");
@@ -65,5 +78,7 @@ module.exports = {
   getGamesByCategoryId,
   addGamesGet,
   addGamesPost,
+  addStudioGet,
+  addStudioPost,
   deleteAllDataPost,
 };

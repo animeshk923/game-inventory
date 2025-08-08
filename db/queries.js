@@ -147,13 +147,16 @@ async function insertGame(gameName, categoryIdsList, studioId) {
 }
 
 async function insertNewCategory(categoryName) {
-  const studioResult = await pool.query(
-    `INSERT INTO studio (studio_id, studio_name) VALUES ($1, $2) RETURNING studio_id;`,
-    [studioId, studioName]
-  );
+  await pool.query(`INSERT INTO categories (category_name) VALUES ($1);`, [
+    categoryName,
+  ]);
 }
 
-async function insertNewStudio(studioName) {}
+async function insertNewStudio(studioName) {
+  await pool.query(`INSERT INTO studio (studio_name) VALUES ($1);`, [
+    studioName,
+  ]);
+}
 // UPDATE Queries
 
 // DELETE Queries
