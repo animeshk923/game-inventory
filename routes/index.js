@@ -10,6 +10,8 @@ appRoute
   .post('/addGame', controller.addGamesPost)
   .get('/addStudio', controller.addStudioGet)
   .post('/addStudio', controller.addStudioPost)
+  .get('/addCategory', controller.addCategoryGet)
+  .post('/addCategory', controller.addCategoryPost)
   .get('/deleteAllData', controller.deleteAllDataPost); // remaining feature, implement later
 
 module.exports = appRoute;

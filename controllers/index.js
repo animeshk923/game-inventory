@@ -68,6 +68,19 @@ async function addStudioPost(req, res) {
   res.redirect("/");
 }
 
+async function addCategoryGet(req, res) {
+  res.render("addNewCategory");
+}
+
+async function addCategoryPost(req, res) {
+  const categoryName = req.body.categoryName;
+  await db.insertNewCategory(categoryName);
+
+  console.log(categoryName, "inserted in DB");
+
+  res.redirect("/");
+}
+
 async function deleteAllDataPost() {
   await db.deleteAllData();
   res.render("deleteDataMessage");
@@ -80,5 +93,7 @@ module.exports = {
   addGamesPost,
   addStudioGet,
   addStudioPost,
+  addCategoryGet,
+  addCategoryPost,
   deleteAllDataPost,
 };
