@@ -105,7 +105,7 @@ async function queryAllGamesAndStudio() {
 async function queryGameIdByName(gameName) {
   const { rows } = await pool.query(
     `
-    SELECT * FROM games WHERE game_name ILIKE '$1%'`,
+    SELECT * FROM games WHERE game_name ILIKE $1%`,
     [gameName]
   );
   return rows[0].studio_id;
@@ -114,10 +114,10 @@ async function queryGameIdByName(gameName) {
 async function queryStudioIdByName(studioName) {
   const { rows } = await pool.query(
     `
-    SELECT * FROM studio WHERE studio_name = '$1'`,
+    SELECT * FROM studio WHERE studio_name = $1`,
     [studioName]
   );
-  return rows[0].studio_id;
+  return rows;
 }
 
 async function queryCategoryIdByName(categoryName) {

@@ -34,7 +34,6 @@ async function addGamesGet(req, res) {
 }
 
 async function addGamesPost(req, res) {
-  // const { studio, category } = req.body;
   const { gameName, studioName } = req.body;
   const selectedCategory = req.body.category || [];
 
@@ -44,12 +43,10 @@ async function addGamesPost(req, res) {
     })
   );
 
-  // const studioId = await db.queryStudioIdByName(studioName);
-  // await db.insertGame(gameName, studioId, categoryId);
-  console.log("categories:", selectedCategory);
-  console.log("categoryArr", categoryIdsArray);
-  console.log("game name", gameName);
-  console.log("studio name", studioName);
+  const studioIdResult = await db.queryStudioIdByName(studioName);
+  const studioId = studioIdResult[0].studio_id;
+  await db.insertGame(gameName, categoryIdsArray, studioId);
+
   res.redirect("/");
 }
 
