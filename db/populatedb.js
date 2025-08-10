@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS games (
     game_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     game_name VARCHAR(255) NOT NULL,
     studio_id INT NOT NULL,
-    FOREIGN KEY (studio_id) REFERENCES studio(studio_id)
+    FOREIGN KEY (studio_id) REFERENCES studio(studio_id) ON DELETE CASCADE
 );
 
 -- Junction table (game-category)
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS game_categories (
     game_id INT,
     category_id INT,
     PRIMARY KEY (game_id, category_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
 INSERT INTO studio (studio_name) VALUES
