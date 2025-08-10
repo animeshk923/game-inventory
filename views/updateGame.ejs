@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Game</title>
+  </head>
+  <body>
+    <h1>Edit game name</h1>
+
+    <form action="editGame" method="POST">
+      <h2>Choose game to update</h2>
+      <label for="studio">Select Game </label>
+      <select name="gameId" id="gameId">
+        <option value="">Select</option>
+        <% gameList.forEach(item => { %>
+        <option value="<%= item.game_id %>"><%= item.game_name %></option>
+        <% }) %>
+      </select>
+      <br /><br />
+      <label for="gameName">Name (case-sensitive): </label>
+      <input type="text" name="gameName" id="gameName" required />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

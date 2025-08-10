@@ -81,9 +81,40 @@ async function addCategoryPost(req, res) {
   res.redirect("/");
 }
 
-async function deleteAllDataPost() {
+async function updateGameGet(req, res) {
+  const gameList = await db.queryOnlyGames();
+  // console.log(gameList);
+
+  res.render("updateGame", { gameList: gameList });
+}
+
+async function updateGamePost(req, res) {
+  const { gameName, gameId } = req.body;
+  await db.updateGame(gameName, gameId);
+  res.redirect("/");
+}
+
+async function updateStudioGet(req, res) {
+  const { studioId } = req.params;
+  res.render("updateStudio");
+}
+
+async function updateStudioPost(req, res) {
+  res.redirect("/");
+}
+
+async function updateCategoryGet(req, res) {
+  res.render("updateCategory");
+}
+
+async function updateCategoryPost(req, res) {
+  const { categoryId } = req.params;
+  res.redirect("/");
+}
+
+async function deleteAllDataPost(req, res) {
   await db.deleteAllData();
-  res.render("deleteDataMessage");
+  res.redirect("/");
 }
 module.exports = {
   indexPageGet,
@@ -95,5 +126,11 @@ module.exports = {
   addStudioPost,
   addCategoryGet,
   addCategoryPost,
+  updateGameGet,
+  updateGamePost,
+  updateStudioGet,
+  updateStudioPost,
+  updateCategoryGet,
+  updateCategoryPost,
   deleteAllDataPost,
 };

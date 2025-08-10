@@ -23,12 +23,14 @@ async function queryAllData() {
 }
 
 async function queryOnlyGames() {
-  return await pool.query(
+  const { rows } = await pool.query(
     `
-    SELECT game_name AS games FROM games 
+    SELECT * FROM games 
     ORDER BY game_name ASC;
     `
   );
+
+  return rows;
 }
 
 async function queryOnlyStudios() {
@@ -157,7 +159,34 @@ async function insertNewStudio(studioName) {
     studioName,
   ]);
 }
+
 // UPDATE Queries
+async function updateGame(newGameName, gameId) {
+  await pool.query(
+    `
+    UPDATE games SET game_name = $1 WHERE game_id = $2;
+  `,
+    [newGameName, gameId]
+  );
+}
+
+async function updateStudio(newStudioName, studioId) {
+  await pool.query(
+    `
+    UPDATE studio SET studio_name = $1 WHERE studio_id = $2;
+  `,
+    [newStudioName, studioId]
+  );
+}
+
+async function updateCategory(newCategoryName, categoryId) {
+  await pool.query(
+    `
+    UPDATE categories SET category_name = $1 WHERE category_id = $2;
+  `,
+    [newCategoryName, categoryId]
+  );
+}
 
 // DELETE Queries
 async function deleteAllData() {
@@ -179,5 +208,8 @@ module.exports = {
   insertGame,
   insertNewCategory,
   insertNewStudio,
+  updateGame,
+  updateStudio,
+  updateCategory,
   deleteAllData,
 };
