@@ -6,8 +6,17 @@
     <title>Edit Studio</title>
   </head>
   <body>
-    <h1>Edit Studio Name for </h1>
-    <form action="addStudio" method="POST">
+    <h1>Edit Studio Name</h1>
+   <form action="editStudio" method="POST">
+      <h2>Choose Studio to update</h2>
+      <label for="studio">Select Studio </label>
+      <select name="studioId" id="studioId">
+        <option value="">Select</option>
+        <% studioList.forEach(item => { %>
+        <option value="<%= item.studio_id %>"><%= item.studio_name %></option>
+        <% }) %>
+      </select>
+      <br /><br />
       <label for="studioName">Name (case-sensitive): </label>
       <input type="text" name="studioName" id="studioName" required />
       <button type="submit">Submit</button>

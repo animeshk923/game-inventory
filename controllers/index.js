@@ -83,8 +83,6 @@ async function addCategoryPost(req, res) {
 
 async function updateGameGet(req, res) {
   const gameList = await db.queryOnlyGames();
-  // console.log(gameList);
-
   res.render("updateGame", { gameList: gameList });
 }
 
@@ -95,11 +93,13 @@ async function updateGamePost(req, res) {
 }
 
 async function updateStudioGet(req, res) {
-  const { studioId } = req.params;
-  res.render("updateStudio");
+  const studioList = await db.queryOnlyStudios();
+  res.render("updateStudio", {studioList: studioList});
 }
 
 async function updateStudioPost(req, res) {
+  const { studioName, studioId } = req.body;
+  await db.updateStudio(studioName, studioId)
   res.redirect("/");
 }
 
