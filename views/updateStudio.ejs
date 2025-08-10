@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Edit Studio Name</h1>
-   <form action="editStudio" method="POST">
+    <form action="editStudio" method="POST">
       <h2>Choose Studio to update</h2>
       <label for="studio">Select Studio </label>
       <select name="studioId" id="studioId">
@@ -17,8 +17,14 @@
         <% }) %>
       </select>
       <br /><br />
+
       <label for="studioName">Name (case-sensitive): </label>
       <input type="text" name="studioName" id="studioName" required />
+      <br /><br /><br />
+
+      <label for="adminPass">Enter admin password: </label>
+      <input type="password" name="adminPass" id="adminPass" required />
+
       <button type="submit">Submit</button>
     </form>
   </body>

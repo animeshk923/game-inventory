@@ -1,3 +1,4 @@
+require("dotenv").config();
 const db = require("../db/queries");
 
 async function indexPageGet(req, res) {
@@ -87,29 +88,43 @@ async function updateGameGet(req, res) {
 }
 
 async function updateGamePost(req, res) {
-  const { gameName, gameId } = req.body;
-  await db.updateGame(gameName, gameId);
-  res.redirect("/");
+  const { gameName, gameId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.updateGame(gameName, gameId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
 }
 
 async function updateStudioGet(req, res) {
   const studioList = await db.queryOnlyStudios();
-  res.render("updateStudio", {studioList: studioList});
+  res.render("updateStudio", { studioList: studioList });
 }
 
 async function updateStudioPost(req, res) {
-  const { studioName, studioId } = req.body;
-  await db.updateStudio(studioName, studioId)
-  res.redirect("/");
+  const { studioName, studioId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.updateStudio(studioName, studioId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
 }
 
 async function updateCategoryGet(req, res) {
-  res.render("updateCategory");
+  const categoryList = await db.queryOnlyCategories();
+  res.render("updateCategory", { categoryList: categoryList });
 }
 
 async function updateCategoryPost(req, res) {
-  const { categoryId } = req.params;
-  res.redirect("/");
+  const { categoryName, categoryId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.updateCategory(categoryName, categoryId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
 }
 
 async function deleteAllDataPost(req, res) {
