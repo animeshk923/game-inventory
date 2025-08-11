@@ -207,21 +207,21 @@ async function main() {
   console.log("seeding...");
 
   // PROD DB
-  // const client = new Client({
-  //   // connectionString: process.argv[2], // pass your connection URI as a argument when running this script
-  //   connectionString: `postgresql://${process.env.AIVEN_DB_USERNAME}:${process.env.AIVEN_DB_PASSWORD}@${process.env.AIVEN_DB_HOSTNAME}:${process.env.AIVEN_DB_PORT}/${process.env.AIVEN_DB}`,
-
-  //   ssl: {
-  //     rejectUnauthorized: true,
-  //     ca: fs.readFileSync("./ca.pem").toString(),
-  //   },
-  // });
-
-  // LOCAL DB
   const client = new Client({
     // connectionString: process.argv[2], // pass your connection URI as a argument when running this script
-    connectionString: `postgresql://${process.env.LOCAL_DB_USERNAME}:${process.env.LOCAL_DB_PASSWORD}@${process.env.LOCAL_DB_HOSTNAME}:${process.env.LOCAL_DB_PORT}/${process.env.LOCAL_DB}`,
+    connectionString: `postgresql://${process.env.AIVEN_DB_USERNAME}:${process.env.AIVEN_DB_PASSWORD}@${process.env.AIVEN_DB_HOSTNAME}:${process.env.AIVEN_DB_PORT}/${process.env.AIVEN_DB}`,
+
+    ssl: {
+      rejectUnauthorized: true,
+      ca: fs.readFileSync("./ca.pem").toString(),
+    },
   });
+
+  // LOCAL DB
+  // const client = new Client({
+  //   // connectionString: process.argv[2], // pass your connection URI as a argument when running this script
+  //   connectionString: `postgresql://${process.env.LOCAL_DB_USERNAME}:${process.env.LOCAL_DB_PASSWORD}@${process.env.LOCAL_DB_HOSTNAME}:${process.env.LOCAL_DB_PORT}/${process.env.LOCAL_DB}`,
+  // });
   await client.connect();
   await client.query(SQL);
   await client.end();
