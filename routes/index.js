@@ -32,7 +32,6 @@ appRoute
   .get("/deleteCategory", controller.deleteCategoryGet)
   .post("/deleteGame", controller.deleteGamePost)
   .get("/deleteStudio", controller.deleteStudioGet)
-  .post("/deleteCategory", controller.deleteCategoryPost)
-  .get("/deleteAllData", controller.deleteAllDataPost); // remaining feature, implement later
+  .post("/deleteCategory", controller.deleteCategoryPost);
 
 module.exports = appRoute;
