@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Game</title>
+  </head>
+  <body>
+    <h1>Delete game from database</h1>
+
+    <form action="deleteGame" method="POST">
+      <h2>Choose game to delete</h2>
+      <label for="gameName">Select Game </label>
+      <select name="gameId" id="gameId">
+        <option value="">Select</option>
+        <% gameList.forEach(item => { %>
+        <option value="<%= item.game_id %>"><%= item.game_name %></option>
+        <% }) %>
+      </select>
+      <br /><br />
+
+      <label for="adminPass">Enter admin password: </label>
+      <input type="password" name="adminPass" id="adminPass" required />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

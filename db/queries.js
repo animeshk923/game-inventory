@@ -189,8 +189,18 @@ async function updateCategory(newCategoryName, categoryId) {
 }
 
 // DELETE Queries
-async function deleteAllData() {
-  return await pool.query("DROP TABLE games;");
+async function deleteGame(gameId) {
+  await pool.query(`DELETE FROM games WHERE game_id = $1`, [gameId]);
+}
+
+async function deleteStudio(studioId) {
+  await pool.query(`DELETE FROM studio WHERE studio_id = $1`, [studioId]);
+}
+
+async function deleteCategory(categoryId) {
+  await pool.query(`DELETE FROM categories WHERE category_id = $1`, [
+    categoryId,
+  ]);
 }
 
 module.exports = {
@@ -211,5 +221,7 @@ module.exports = {
   updateGame,
   updateStudio,
   updateCategory,
-  deleteAllData,
+  deleteGame,
+  deleteStudio,
+  deleteCategory,
 };

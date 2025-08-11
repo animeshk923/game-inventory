@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Studio</title>
+  </head>
+  <body>
+    <h1>Delete Studio from database</h1>
+    <form action="deleteStudio" method="POST">
+      <h2>Choose Studio to delete</h2>
+      <label for="studio">Select Studio </label>
+      <select name="studioId" id="studioId">
+        <option value="">Select</option>
+        <% studioList.forEach(item => { %>
+        <option value="<%= item.studio_id %>"><%= item.studio_name %></option>
+        <% }) %>
+      </select>
+      <br /><br />
+
+      <label for="adminPass">Enter admin password: </label>
+      <input type="password" name="adminPass" id="adminPass" required />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

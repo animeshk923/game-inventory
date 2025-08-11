@@ -127,10 +127,51 @@ async function updateCategoryPost(req, res) {
   }
 }
 
-async function deleteAllDataPost(req, res) {
-  await db.deleteAllData();
-  res.redirect("/");
+async function deleteGameGet(req, res) {
+  const gameList = await db.queryOnlyGames();
+  res.render("deleteGame", { gameList: gameList });
 }
+
+async function deleteGamePost(req, res) {
+  const { gameId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.deleteGame(gameId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
+}
+
+async function deleteStudioGet(req, res) {
+  const studioList = await db.queryOnlyStudios();
+  res.render("deleteStudio", { studioList: studioList });
+}
+
+async function deleteStudioPost(req, res) {
+  const { studioId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.deleteStudio(studioId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
+}
+
+async function deleteCategoryGet(req, res) {
+  const categoryList = await db.queryOnlyCategories();
+  res.render("deleteCategory", { categoryList: categoryList });
+}
+
+async function deleteCategoryPost(req, res) {
+  const { categoryId, adminPass } = req.body;
+  if (adminPass === process.env.ADMIN_PASS) {
+    await db.deleteCategory(categoryId);
+    res.redirect("/");
+  } else {
+    res.render("wrongPasswordPage");
+  }
+}
+
 module.exports = {
   indexPageGet,
   getGamesByStudioId,
@@ -147,5 +188,10 @@ module.exports = {
   updateStudioPost,
   updateCategoryGet,
   updateCategoryPost,
-  deleteAllDataPost,
+  deleteGameGet,
+  deleteGamePost,
+  deleteStudioGet,
+  deleteStudioPost,
+  deleteCategoryGet,
+  deleteCategoryPost,
 };

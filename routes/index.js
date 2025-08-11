@@ -24,7 +24,15 @@ appRoute
   .get("/editStudio", controller.updateStudioGet)
   .post("/editStudio", controller.updateStudioPost)
   .get("/editCategory", controller.updateCategoryGet)
-  .post("/editCategory", controller.updateCategoryPost)
+  .post("/editCategory", controller.updateCategoryPost);
+
+appRoute
+  .get("/deleteGame", controller.deleteGameGet)
+  .post("/deleteStudio", controller.deleteStudioPost)
+  .get("/deleteCategory", controller.deleteCategoryGet)
+  .post("/deleteGame", controller.deleteGamePost)
+  .get("/deleteStudio", controller.deleteStudioGet)
+  .post("/deleteCategory", controller.deleteCategoryPost)
   .get("/deleteAllData", controller.deleteAllDataPost); // remaining feature, implement later
 
 module.exports = appRoute;

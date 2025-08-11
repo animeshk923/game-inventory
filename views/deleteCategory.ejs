@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Category</title>
+  </head>
+  <body>
+    <form action="deleteCategory" method="POST">
+      <h2>Choose category to delete</h2>
+
+      <label for="category">Select Category </label>
+      <select name="categoryId" id="categoryId">
+        <option value="">Select</option>
+        <% categoryList.forEach(item => { %>
+        <option value="<%= item.category_id %>">
+          <%= item.category_name %>
+        </option>
+        <% }) %>
+      </select>
+      <br /><br />
+
+      <label for="adminPass">Enter admin password: </label>
+      <input type="password" name="adminPass" id="adminPass" required />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
